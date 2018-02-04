@@ -11,7 +11,7 @@ class Author(models.Model):
     contact = models.CharField(max_length=100)
     bio = models.TextField()
     follow = models.ManyToManyField(User)
-    #img = models.ImageField(upload_to = 'author_img/', default = 'author_img/None/no-img.jpg')
+    img = models.ImageField(upload_to = 'author_img/', default = 'author_img/None/no-img.jpg')
 
 class Book(models.Model):
     book_id = models.AutoField(primary_key=True)
@@ -22,7 +22,7 @@ class Book(models.Model):
     country = models.CharField(max_length=50)
     link = models.URLField(max_length=200)
     user_id = models.ManyToManyField(User,through="user_book")
-    #img = models.ImageField(upload_to = 'book_img/', default = 'book_img/None/no-img.jpg')
+    img = models.ImageField(upload_to = 'book_img/', default = 'book_img/None/no-img.jpg')
 
 class Category(models.Model):
     cat_id = models.AutoField(primary_key=True)
