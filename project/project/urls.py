@@ -19,5 +19,7 @@ import library.views as lib_views
 
 urlpatterns = [
     path('', lib_views.index),
+    path('category', lib_views.category,name="category"),
+    path('search.html', lib_views.search,name="search"),
     path('admin/', admin.site.urls),
 ]

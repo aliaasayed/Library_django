@@ -12,6 +12,8 @@ class Author(models.Model):
     bio = models.TextField()
     follow = models.ManyToManyField(User)
     img = models.ImageField(upload_to = 'author_img/', default = 'author_img/None/no-img.jpg')
+    def __str__(self):
+        return self.name
 
 class Book(models.Model):
     book_id = models.AutoField(primary_key=True)
@@ -23,12 +25,16 @@ class Book(models.Model):
     link = models.URLField(max_length=200)
     user_id = models.ManyToManyField(User,through="user_book")
     img = models.ImageField(upload_to = 'book_img/', default = 'book_img/None/no-img.jpg')
+    def __str__(self):
+        return self.name
 
 class Category(models.Model):
     cat_id = models.AutoField(primary_key=True)
     cat_name = models.CharField(max_length=50)
     book = models.ManyToManyField(Book)
     favourite = models.ManyToManyField(User)
+    def __str__(self):
+        return self.cat_name
 
 class user_book(models.Model):
     book_id = models.ForeignKey(Book,on_delete=models.CASCADE)
