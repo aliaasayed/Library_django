@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+    <div id="books">
+      <h2>Books</h2>
+      <ul class="list-group">
+      {% for book in books  %}
+      <li  class="list-group-item list-group-item-warning">
+        <a href="/book_info.html/{{book.book_id }}">{{book.name}}</a>
+      </li>
+      {% endfor %}
+
+        </ul
+
+    </div>
+
+    <div id="authors" style="display=inline">
+    <h2>Authors</h2>
+      <ul class="list-group">
+      {% for author in authors  %}
+      <li  class="list-group-item list-group-item-warning" >
+    <a href="/author_info.html/{{author.author_id }}">{{author.name}}</a>
+      </li>
+      {% endfor %}
+
+        </ul
+    </div>
+
+    </div>
+
+  </body>
+</html>
