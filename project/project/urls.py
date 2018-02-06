@@ -21,5 +21,9 @@ urlpatterns = [
     path('', lib_views.index),
     path('category', lib_views.category,name="category"),
     path('search.html', lib_views.search,name="search"),
+    path('book_info.html/<int:book_num>', lib_views.book_details),
+    path('author_info.html/<int:author_num>', lib_views.author_details),
+    path('user_info.html/<int:user_num>', lib_views.user_info),
+    path('user_home.html/<int:user_num>', lib_views.user_home),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body>
+<div class="container">
+
+<div id="book_details">
+  <ul class="list-group">
+  {% for bk in book  %}
+
+    <img src="{{bk.img}}" width="200" height="200"/>
+
+  <li class="list-group-item list-group-item-warning">
+      <label> Book Name :  </label>  {{bk.name}}
+  </li>
+  <li class="list-group-item list-group-item-warning">
+       <label> published at :  </label>{{bk.published_at}}
+  </li>
+  <li class="list-group-item list-group-item-warning">
+      <label> summary:  </label> {{bk.summary}}
+  </li>
+  <li class="list-group-item list-group-item-warning">
+       <label> country book published in  :  </label>{{bk.country}}
+  </li>
+
+  {% endfor %}
+
+    </ul
+
+</div>
+</div>
+</body>
+</html>
