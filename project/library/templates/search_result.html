@@ -1,4 +1,8 @@
+{% if request.user.is_authenticated %}
 {% include 'login_navbar.html' %}
+{% else %}
+{% include 'navbar.html' %}
+{% endif %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
@@ -17,7 +21,7 @@
            <center> <h3>Books</h3> </center>
             <hr><ul>
                 {% for book in books %}
-                    <img src="{% static '{{book.img}}' %}">
+                   <img src="/media/{{book.img}}">
 
                         <li>
                             <a href="/book_info.html/{{ book.book_id }}">
@@ -34,7 +38,7 @@
                 <hr>
                 <ul>
                 {% for author in authors %}
-                    <img src="{% static '{{author.img}}' %}">
+                    <img src="/media/{{book.img}}">
                     <li>
                         <a href="/author_info.html/{{ author.author_id }}">
                             {{author.name}}

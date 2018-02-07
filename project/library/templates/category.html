@@ -17,7 +17,7 @@
        <div class="col-sm-6">
         <center>
        {% for book in cat_books %}
-       <img src="{% static '{{book.img}}' %}">
+       <img src="/media/{{book.img}}">
        <form  method="post"> {% csrf_token %}
          <input type="submit" class="btn-link" name="book" value="{{ book.name }}">
         </form>
