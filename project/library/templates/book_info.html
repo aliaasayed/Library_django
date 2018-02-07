@@ -10,7 +10,13 @@
     <meta charset="utf-8">
     <title></title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
   </head>
   <body>
 <div class="container">
@@ -19,7 +25,8 @@
   <ul class="list-group">
   {% for bk in book  %}
 
-    <img src="/media/{{bk.img}}" width="200" height="200"/>
+    <img src="{{bk.img}}" width="200" height="200"/>
+
 
   <li class="list-group-item list-group-item-warning">
       <label> Book Name :  </label>  {{bk.name}}
@@ -37,6 +44,27 @@
   {% endfor %}
 
 </ul>
+
+</div>
+<div>
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <ul>
+    {% for r in ur  %}
+
+<li>    <form action="{% url 'book_status' %}" method="POST"> {% csrf_token %}
+     <input type="submit" class="btn-link" name="status" value="{{r.1}}">
+
+</li>
+    {% endfor %}
+     <input type="hidden" name="book_id" value="{{bookid}}"/>
+     </form>
+  </ul>
+  </div>
+</div>
 
 </div>
 </div>

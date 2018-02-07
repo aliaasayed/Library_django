@@ -36,6 +36,28 @@
     </ul
 
 </div>
+<div id="author_books">
+  <h2>Author Books</h2>
+  <ul class="list-group">
+  {% for bk in author_books  %}
+
+    <!-- <img src="{{bk.img}}" width="200" height="200"/> -->
+
+    <li>
+        <a href="/book_info.html/{{ bk.book_id }}">
+        {{bk.name}}
+        </a>
+    </li>
+  {% endfor %}
+
+    </ul
+
+
+
+
+</div>
+
+
 </div>
 </body>
 </html>
