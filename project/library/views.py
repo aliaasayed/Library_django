@@ -1,13 +1,59 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from library.models import *
+from django.http import HttpResponse , HttpResponseRedirect
+from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.models import User
+from library.models import *
+from .forms import *
+from django import forms
 # Create your views here.
 def index(request):
     categories=Category.objects.all()
     return render(request,"index.html",{'categories':categories})
 
+def signup(request):
+    if request.method=='POST':
+        form = AddUser(request.POST)
+        if form.is_valid():
+            user_form = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user_form.set_password(user_form.password)
+            user_form.save()
+            return redirect("login")
+    else:
+        form = AddUser()
+        return render(request,"signup.html/",{"form":form})
+
+def login_auth(request):
+    if request.method=='POST':
+        form = Login_form(request.POST)
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect("index")
+    else:
+        form = Login_form()
+        return render(request,"login.html/",{"form":form})
+
+def edit_user(request):
+    # if request.method=='GET':
+    if request.user.is_authenticated:
+        form = Edit_form(initial={'first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email,'username':request.user.username})
+        if form.is_valid():
+            edit_form = form.save(commit=False)
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            hash_password=edit_form.set_password(edit_form.password)
+            #User.objects.filter(id=request.user.id).update('first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email)
+            #edit_form.save()
+            return redirect("user_home")
+    else:
+        form = Edit_form()
+        return render(request,"edit_user.html/",{"form":form})
 
 def search(request):
     categories=Category.objects.all()
@@ -22,7 +68,7 @@ def category(request):
     cat_books=category.book.all()
     categories=Category.objects.all()
     #author=Author.objects.filter(author_id__in=category.book.all())
-    return render(request,"category.html",{'categories':categories,'cat_books':cat_books})   
+    return render(request,"category.html",{'categories':categories,'cat_books':cat_books})
 
 
 
@@ -50,4 +96,3 @@ def user_home(request,user_num):
     whish_books=user_book.objects.filter(user_id=user_num).filter(status='wish').values()
     follow=Author.objects.filter(follow__id=user_num).values()
     return render(request,"user_home.html",{'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books})
-
