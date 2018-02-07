@@ -1,5 +1,5 @@
 {% include 'login_navbar.html' %}
-{% load staticfiles%}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +18,17 @@
             <hr><ul>
                 {% for book in books %}
                     <img src="{% static '{{book.img}}' %}">
-                    
+
                         <li>
                             <a href="/book_info.html/{{ book.book_id }}">
                             {{book.name}}
                             </a>
                         </li>
-                    
+
                 {% endfor %}
             </ul>
         </div>
-        
+
         <div class="col-sm-6">
                <center> <h3>Authors</h3> </center>
                 <hr>
@@ -47,6 +47,6 @@
 
 
 </div>
-    
+
 </body>
 </html>
