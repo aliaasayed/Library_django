@@ -31,7 +31,7 @@ urlpatterns = [
     path('book', lib_views.book_status,name="book_status"),
     path('author_info.html/<int:author_num>', lib_views.author_details),
     path('user_info.html/<int:user_num>', lib_views.user_info),
-    path('user_home.html/, lib_views.user_home,name='user_home'),
+    path('user_home.html', lib_views.user_home,name='user_home'),
     path('admin/', admin.site.urls),
 ]
 

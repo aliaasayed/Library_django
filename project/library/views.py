@@ -31,7 +31,7 @@ def login_auth(request):
         user=authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            return redirect("user_home",request.user.id)
+            return redirect("user_home")
     else:
         form = Login_form()
         return render(request,"login.html/",{"form":form})
