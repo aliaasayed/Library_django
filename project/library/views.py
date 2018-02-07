@@ -36,24 +36,33 @@ def login_auth(request):
         form = Login_form()
         return render(request,"login.html/",{"form":form})
 
-def edit_user(request):
-    # if request.method=='GET':
+def logout_auth(request):
     if request.user.is_authenticated:
-        form = Edit_form(initial={'first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email,'username':request.user.username})
-        if form.is_valid():
-            edit_form = form.save(commit=False)
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            hash_password=edit_form.set_password(edit_form.password)
-            #User.objects.filter(id=request.user.id).update('first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email)
-            #edit_form.save()
-            return redirect("user_home")
+        logout(request)
+        return redirect("login")
+
+def edit_user(request):
+    if request.method=='GET':
+        if request.user.is_authenticated:
+            form = Edit_form(initial={'first_name':request.user.first_name,'last_name':request.user.last_name,'email':request.user.email,'username':request.user.username})
+            return render(request,"edit_user.html/",{"form":form})
     else:
-        form = Edit_form()
-        return render(request,"edit_user.html/",{"form":form})
+        if request.user.is_authenticated:
+            form=Edit_form()
+            if form.is_valid():
+                edit_form = form.save(commit=False)
+                first_name = form.cleaned_data.get('first_name')
+                last_name = form.cleaned_data['last_name']
+                username = form.cleaned_data['username']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                hash_password=edit_form.set_password(edit_form.password)
+                User.objects.fillter(id=request.user.id).update(first_name=first_name,last_name=last_name,email=email,password=hash_password)
+                edit_form.save()
+                return redirect("user_home")
+        # else:
+    #     form = Edit_form()
+    #     return render(request,"edit_user.html/",{"form":form})
 
 def search(request):
     categories=Category.objects.all()

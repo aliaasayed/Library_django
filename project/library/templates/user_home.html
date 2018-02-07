@@ -1,78 +1,62 @@
+{% include 'login_navbar.html' %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  </head>
-  <body>
-<div class="container">
 
-<div id="favourite" class="panel-heading">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+</head>
 
-  <h2>Favourite Categories</h2>
-  <ul class="list-group" >
-   {% for f in fav  %}
-  <li class="list-group-item list-group-item-warning">
-    <a href="/category.html/{{f.cat_id}}">{{f.cat_name}}</a>
-  </li>
-  {% endfor %}
-  </ul
-</div>
+<body>
+  <div class="container">
 
-<div id="read" class="panel-heading">
-    <h2>Read Books</h2>
-    <ul class="list-group" >
-      {% for b in read_books  %}
+    <div id="favourite" class="panel-heading">
 
-         {% for pp in books %}
+      <h2>Favourite Categories</h2>
+      <ul class="list-group">
+        {% for f in fav %}
+        <li class="list-group-item list-group-item-warning">
+          <a href="/category.html/{{f.cat_id}}">{{f.cat_name}}</a>
+        </li>
+        {% endfor %}
+      </ul </div>
 
-          {% if b.book_id_id == pp.book_id %}
+      <div id="read" class="panel-heading">
+        <h2>Read Books</h2>
+        <ul class="list-group">
+          {% for b in read_books %} {% for pp in books %} {% if b.book_id_id == pp.book_id %}
           <li class="list-group-item list-group-item-warning">
-             <a href="/book_info.html/{{b.book_id_id}}">{{ pp.name }}</a>
+            <a href="/book_info.html/{{b.book_id_id}}">{{ pp.name }}</a>
 
           </li>
-            {% endif %}
+          {% endif %} {% endfor %} {% endfor %}
+        </ul </div>
 
-          {% endfor %}
-       {% endfor %}
-    </ul
+        <div id="whishlist" class="panel-heading">
+          <h2> whish books </h2>
+          <ul class="list-group">
+            {% for wb in whish_books %} {% for pp in books %} {% if wb.book_id_id == pp.book_id %}
+            <li class="list-group-item list-group-item-warning">
+              <a href="/book_info.html/{{wb.book_id_id}}">{{ pp.name }}</a>
 
-</div>
+            </li>
+            {% endif %} {% endfor %} {% endfor %}
+          </ul </div>
 
-<div id="whishlist" class="panel-heading">
-<h2> whish books </h2>
-<ul class="list-group" >
- {% for wb in whish_books  %}
-   {% for pp in books %}
+          <div id="follow" class="panel-heading">
+            <h2> Authors You Follow </h2>
+            <ul class="list-group">
+              {% for auth in follow %}
+              <li class="list-group-item list-group-item-warning">
+                <a href="/author_info.html/{{auth.author_id}}">{{auth.name}}</a>
+              </li>
+              {% endfor %}
+            </ul </div>
 
-    {% if wb.book_id_id == pp.book_id %}
-    <li class="list-group-item list-group-item-warning">
-<a href="/book_info.html/{{wb.book_id_id}}">{{ pp.name }}</a>
-
-    </li>
-      {% endif %}
-
-    {% endfor %}
-{% endfor %}
-</ul
-
-</div>
-
-<div id="follow" class="panel-heading">
-  <h2> Authors You Follow </h2>
-  <ul class="list-group" >
-   {% for auth in follow  %}
-  <li class="list-group-item list-group-item-warning">
-    <a href="/author_info.html/{{auth.author_id}}">{{auth.name}}</a>
-  </li>
-  {% endfor %}
-  </ul
-
-</div>
-
-<!-- <div>
+            <!-- <div>
    {% for b in read_books  %}
 
       {% for pp in books %}
@@ -87,6 +71,7 @@
 
 </div> -->
 
-</div>
+          </div>
 </body>
+
 </html>

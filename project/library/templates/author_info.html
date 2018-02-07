@@ -1,63 +1,69 @@
+{% if request.user.is_authenticated %}
+{% include 'login_navbar.html' %}
+{% else %}
+{% include 'navbar.html' %}
+{% endif %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-  </head>
-  <body>
-<div class="container">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
-<div id="author_details" >
-  <ul class="list-group">
-  {% for auth in author  %}
+</head>
 
-    <img src="{{auth.img}}" width="200" height="200"/>
+<body>
+  <div class="container">
 
-  <li class="list-group-item list-group-item-warning">
-    <label> Author Name :  </label>{{auth.name}}
-  </li>
-  <li class="list-group-item list-group-item-warning" >
-    <label> Date of Birth :  </label>  {{auth.date_of_birth}}
-  </li>
-  <li class="list-group-item list-group-item-warning" >
-    <label> Died at :  </label> {{auth.date_of_die}}
-  </li>
-  <li class="list-group-item list-group-item-warning" >
-     <label> Contact at :  </label>{{auth.contact}}
-  </li>
-  <li class="list-group-item list-group-item-warning" >
-     <label> Author Bio :  </label>{{auth.bio}}
-  </li>
+    <div id="author_details">
+      <ul class="list-group">
+        {% for auth in author %}
 
-  {% endfor %}
-
-    </ul
-
-</div>
-<div id="author_books">
-  <h2>Author Books</h2>
-  <ul class="list-group">
-  {% for bk in author_books  %}
-
-    <!-- <img src="{{bk.img}}" width="200" height="200"/> -->
-
-    <li>
-        <a href="/book_info.html/{{ bk.book_id }}">
-        {{bk.name}}
-        </a>
-    </li>
-  {% endfor %}
-
-    </ul
+        <img src="media/{{auth.img}}" width="200" height="200" />
 
 
+        <li class="list-group-item list-group-item-warning">
+          <label> Author Name :  </label>{{auth.name}}
+        </li>
+        <li class="list-group-item list-group-item-warning">
+          <label> Date of Birth :  </label> {{auth.date_of_birth}}
+        </li>
+        <li class="list-group-item list-group-item-warning">
+          <label> Died at :  </label> {{auth.date_of_die}}
+        </li>
+        <li class="list-group-item list-group-item-warning">
+          <label> Contact at :  </label>{{auth.contact}}
+        </li>
+        <li class="list-group-item list-group-item-warning">
+          <label> Author Bio :  </label>{{auth.bio}}
+        </li>
 
+        {% endfor %}
 
-</div>
+      </ul>
+    </div>
+    <div id="author_books">
+      <h2>Author Books</h2>
+      <ul class="list-group">
+        {% for bk in author_books %}
+        <li>
+          <a href="/book_info.html/{{ bk.book_id }}">
+            {{bk.name}}
+            </a>
+        </li>
+        {% endfor %}
 
-
-</div>
+      </ul>
+    </div>
+  </div>
 </body>
+
 </html>
