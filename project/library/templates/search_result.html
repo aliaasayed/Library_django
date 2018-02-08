@@ -6,16 +6,18 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Search Result</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Search Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <script src="main.js"></script>
 </head>
+
 <body>
-<div class="container">
+  <div class="container">
     <div class="row">
         <div class="col-sm-6">
            <center> <h3>Books</h3> </center>
@@ -43,16 +45,18 @@
                     <img src="/media/{{book.img}}">
                     <li>
                         <a href="/author_info.html/{{ author.author_id }}">
+
                             {{author.name}}
                         </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
 
 
-</div>
+  </div>
 
 </body>
+
 </html>

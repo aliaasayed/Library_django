@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Navbar</title>
   <meta charset="utf-8">
@@ -13,44 +14,46 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
+
 <body>
-<nav class="navbar navbar-default">
+  <nav class="navbar navbar-default">
     <div class="navbar-nav">
-        <a class="navbar-brand" href="#">Reads</a>
-        <ul class="nav navbar-nav navbar-left">
-                <li >
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+      <a class="navbar-brand" href="/user_home.html">Reads</a>
+      <ul class="nav navbar-nav navbar-left">
+        <li>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
                         <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            {% for category in categories %}
-                            <li>
-                            <form action="{% url 'category' %}" method="post"> {% csrf_token %}
-                             <input type="submit" class="btn-link" name="Query" value="{{ category.cat_name }}"></form>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                </li>
-              </ul>
+          <ul class="dropdown-menu">
+            {% for category in categories %}
+            <li>
+              <form action="{% url 'category' %}" method="post"> {% csrf_token %}
+                <input type="submit" class="btn-link" name="Query" value="{{ category.cat_name }}"></form>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
 
     </div>
-    <div class="collapse navbar-collapse" >
-            <form class="navbar-form navbar-left" method="POST" action="{% url 'search'%}">{% csrf_token %}
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for Author or Book" name="Query">
-                        <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
+    <div class="collapse navbar-collapse">
+      <form class="navbar-form navbar-left" method="POST" action="{% url 'search'%}">{% csrf_token %}
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for Author or Book" name="Query">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
-                        </div>
-                    </div>
-            </form>
+          </div>
+        </div>
+      </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="user_info.html">{{ request.user.username }}</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in icon"></span> Logout</a></li>
+        <li><a href="/user_info.html/{{request.user.id}}">{{ request.user.username }}</a></li>
+        <li><a href="/logout.html"><span class="glyphicon glyphicon-log-in icon"></span> Logout</a></li>
       </ul>
     </div>
-  </div>
-</nav>
+    </div>
+  </nav>
 
 </body>
+
 </html>
