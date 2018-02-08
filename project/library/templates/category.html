@@ -16,13 +16,19 @@
     <div class="row">
        <div class="col-sm-6">
         <center>
-       {% for book in cat_books %}
-       <img src="/media/{{book.img}}">
-       <form  method="post"> {% csrf_token %}
-         <input type="submit" class="btn-link" name="book" value="{{ book.name }}">
-        </form>
-       <hr>
-       {% endfor %}
+           {% for book in cat_books %}
+                <div>
+
+                
+                <img src="/media/{{book.img}}">
+
+                     
+                         <a href="/book_info.html/{{ book.book_id }}">
+                         {{book.name}}
+                         </a>
+                  
+                  </div>  
+             {% endfor %}   
     </center>
        </div>
     </div>

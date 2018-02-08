@@ -21,13 +21,15 @@
            <center> <h3>Books</h3> </center>
             <hr><ul>
                 {% for book in books %}
+                <li>
+                    
                    <img src="/media/{{book.img}}">
 
-                        <li>
+                       
                             <a href="/book_info.html/{{ book.book_id }}">
                             {{book.name}}
                             </a>
-                        </li>
+                </li>
 
                 {% endfor %}
             </ul>
