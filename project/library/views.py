@@ -48,18 +48,19 @@ def edit_user(request):
             return render(request,"edit_user.html/",{"form":form})
     else:
         if request.user.is_authenticated:
-            form=Edit_form()
+            form=Edit_form(request.POST)
             if form.is_valid():
-                edit_form = form.save(commit=False)
+                # edit_form = form.save(commit=False)
                 first_name = form.cleaned_data.get('first_name')
-                last_name = form.cleaned_data['last_name']
-                username = form.cleaned_data['username']
-                email = form.cleaned_data['email']
-                password = form.cleaned_data['password']
-                hash_password=edit_form.set_password(edit_form.password)
-                User.objects.fillter(id=request.user.id).update(first_name=first_name,last_name=last_name,email=email,password=hash_password)
-                edit_form.save()
-                return redirect("user_home")
+                last_name = form.cleaned_data.get('last_name')
+                username = form.cleaned_data.get('username')
+                email = form.cleaned_data.get('email')
+                # password = form.cleaned_data.get('password')
+                # hash_password=form.set_password(form.password)
+                id=request.user.id
+                User.objects.filter(id=id).update(first_name=first_name,last_name=last_name,email=email,username=username)
+                # edit_form.save()
+                return redirect("user_info",id)
         # else:
     #     form = Edit_form()
     #     return render(request,"edit_user.html/",{"form":form})

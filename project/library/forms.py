@@ -25,4 +25,4 @@ class Edit_form(forms.ModelForm):
     last_name = forms.CharField(label='Last Name', max_length=50)
     username = forms.CharField(label='user Name', max_length=50)
     email = forms.EmailField(label='Email', max_length=100)
-    password = forms.CharField(label='Password',widget=forms.PasswordInput)
+    # password = forms.CharField(label='Password',widget=forms.PasswordInput)

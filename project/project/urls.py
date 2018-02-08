@@ -33,7 +33,7 @@ urlpatterns = [
     path('followauthor', lib_views.follow_author,name="follow_author"),
     path('unfollowauthor', lib_views.unfollow_author,name="unfollow_author"),
     path('author_info.html/<int:author_num>', lib_views.author_details),
-    path('user_info.html/<int:user_num>', lib_views.user_info),
+    path('user_info.html/<int:user_num>', lib_views.user_info,name='user_info'),
     path('user_home.html', lib_views.user_home,name='user_home'),
     path('admin/', admin.site.urls),
 ]
