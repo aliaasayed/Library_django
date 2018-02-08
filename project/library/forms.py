@@ -20,7 +20,7 @@ class Login_form(forms.ModelForm):
 class Edit_form(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email','password']
+        fields = ['first_name', 'last_name', 'username', 'email']
     first_name = forms.CharField(label='First Name', max_length=50)
     last_name = forms.CharField(label='Last Name', max_length=50)
     username = forms.CharField(label='user Name', max_length=50)
