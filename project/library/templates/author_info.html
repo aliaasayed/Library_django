@@ -21,7 +21,8 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
+
 
     <div id="author_details">
       <ul class="list-group">
@@ -46,10 +47,22 @@
           <label> Author Bio :  </label>{{auth.bio}}
         </li>
 
+
+           <div id="follow">
+
+               <form action="{% url 'follow_author' %}" method="POST"> {% csrf_token %}
+                 <input type="submit"  name="follow" value="Follow" />
+                   <input type="hidden" name="authid" value="{{auth.author_id}}" />
+               </form>
+
+           </div>
+
         {% endfor %}
 
       </ul>
     </div>
+
+
     <div id="author_books">
       <h2>Author Books</h2>
       <ul class="list-group">

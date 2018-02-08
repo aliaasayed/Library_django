@@ -85,18 +85,15 @@ def book_details(request,book_num):
     book=Book.objects.filter(book_id=book_num)
     ur=user_book._meta.get_field('status').choices
     bookid=book_num
-    # MyModel._meta.get_field('foo').choices
     return render(request,"book_info.html",{'book':book,'ur':ur,'bookid':bookid})
-
-
-
 
 
 
 def author_details(request,author_num):
     author=Author.objects.filter(author_id=author_num)
     author_books=Book.objects.filter(author_id=author_num)
-    return render(request,"author_info.html",{'author':author,'author_books':author_books})
+    authorid=author_num
+    return render(request,"author_info.html",{'author':author,'author_books':author_books,'authorid':authorid})
 
 
 def user_info(request,user_num):
@@ -126,5 +123,23 @@ def book_status(request):
         user_book.objects.filter(user_id=usr).filter(book_id=bkd).update(status=bkstatus)
     else:
         user_book.objects.create(user_id=user,book_id=book,status=bkstatus)
-    # user_book.objects.create(user_id=user,book_id=book,status=bkstatus)
-    return user_home(request)
+    return  book_details(request,bkd) #user_home(request)
+
+
+def follow_author(request):
+    usr=request.user.id
+    user=User.objects.get(id=usr)
+    authorid=request.POST['authid']
+    author=Author.objects.get(author_id=authorid)
+    author.follow.add(user)
+    return  user_home(request)
+
+
+
+def unfollow_author(request):
+    usr=request.user.id
+    user=User.objects.get(id=usr)
+    authorid=request.POST['authid']
+    author=Author.objects.get(author_id=authorid)
+    author.follow.remove(user)
+    return  user_home(request)
