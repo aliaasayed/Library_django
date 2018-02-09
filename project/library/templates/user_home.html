@@ -16,6 +16,10 @@
     li{
       text-align: center;
     }
+    .fo{
+      float: left;
+    }
+
   </style>
 </head>
 <body>
@@ -27,7 +31,13 @@
       <ul class="list-group">
         {% for f in fav %}
         <li class="list-group-item list-group-item-warning">
-          <a href="/category.html/{{f.cat_id}}">{{f.cat_name}}</a>
+          <form class ="fo" action="{% url 'category' %}" method="post"> {% csrf_token %}
+            <input type="submit" class="btn-link" name="Query" value="{{ f.cat_name }}">
+          </form>
+          <form action="{% url 'unfav_cat' %}" method="POST"> {% csrf_token %}
+              <input type="submit"  name="fav" value="unfavourite" />
+              <input type="hidden" name="catid" value="{{f.cat_id}}" />
+          </form>
         </li>
         {% endfor %}
       </ul> </div>

@@ -100,8 +100,9 @@ def category(request):
     category=Category.objects.get(cat_name=query)
     cat_books=category.book.all()
     categories=Category.objects.all()
+    catid=category.cat_id
     #author=Author.objects.filter(author_id__in=category.book.all())
-    return render(request,"category.html",{'categories':categories,'cat_books':cat_books})
+    return render(request,"category.html",{'catid':catid,'categories':categories,'cat_books':cat_books})
 
 
 
@@ -127,6 +128,7 @@ def user_info(request,user_num):
 
 
 def user_home(request):
+    categories=Category.objects.all()
     user_num=request.user.id
     #user=User.objects.get(id=user_num)
     fav=Category.objects.filter(favourite__id=user_num)
@@ -134,7 +136,7 @@ def user_home(request):
     books=Book.objects.all()
     whish_books=user_book.objects.filter(user_id=user_num).filter(status='wish').values()
     follow=Author.objects.filter(follow__id=user_num).values()
-    return render(request,"user_home.html",{'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books})
+    return render(request,"user_home.html",{'categories':categories,'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books})
 
 
 def book_status(request):
@@ -166,4 +168,20 @@ def unfollow_author(request):
     authorid=request.POST['authid']
     author=Author.objects.get(author_id=authorid)
     author.follow.remove(user)
+    return  user_home(request)
+
+def fav_cat(request):
+    usr=request.user.id
+    user=User.objects.get(id=usr)
+    catid=request.POST['catid']
+    category=Category.objects.get(cat_id=catid)
+    category.favourite.add(user)
+    return  user_home(request)
+
+def unfav_cat(request):
+    usr=request.user.id
+    user=User.objects.get(id=usr)
+    catid=request.POST['catid']
+    category=Category.objects.get(cat_id=catid)
+    category.favourite.remove(user)
     return  user_home(request)

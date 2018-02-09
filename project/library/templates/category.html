@@ -42,7 +42,14 @@
 
     </div>
   </div>
+  <div id="favourite">
 
+      <form action="{% url 'fav_cat' %}" method="POST"> {% csrf_token %}
+        <input type="submit"  name="fav" value="Favourite" />
+          <input type="hidden" name="catid" value="{{catid}}" />
+      </form>
+
+  </div>
 </body>
 
 </html>
