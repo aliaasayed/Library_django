@@ -9,6 +9,26 @@
     -o-background-size: cover;
     background-size: cover;
   }
+  h1 {
+    color: white;
+    margin-left: 25px;
+    margin-top: 10px;
+  }
+  #submit{
+    margin-top: 10px;
+    margin-left: 85px;
+  }
+  form p {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+  }
+  input{
+    color: black;
+  }
+  .row{
+    margin-top: 50px;
+  }
 </style>
 <html>
 
@@ -19,7 +39,12 @@
 </head>
 
 <body>
-
+  <div class="row">
+    <h1> Login </h1>
+  <form method="POST"  class="col-sm-3 control-label offset-sm-2"> {% csrf_token %} {{ form.as_p }}
+    <input id="submit" type="submit" name="submit" value="login" class="btn btn-danger col-sm-6 offset-sm-0"/>
+  </form>
+    </div>
 </body>
 
 </html>

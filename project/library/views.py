@@ -8,22 +8,6 @@ from django import forms
 # Create your views here.
 def index(request):
     categories=Category.objects.all()
-    return render(request,"index.html",{'categories':categories})
-
-def signup(request):
-    if request.method=='POST':
-        form = AddUser(request.POST)
-        if form.is_valid():
-            user_form = form.save(commit=False)
-            password = form.cleaned_data['password']
-            user_form.set_password(user_form.password)
-            user_form.save()
-            return redirect("login")
-    else:
-        form = AddUser()
-        return render(request,"signup.html/",{"form":form})
-
-def login_auth(request):
     if request.method=='POST':
         form = Login_form(request.POST)
         username=request.POST['username']
@@ -34,12 +18,40 @@ def login_auth(request):
             return redirect("user_home")
     else:
         form = Login_form()
-        return render(request,"login.html/",{"form":form})
+        # return render(request,"login.html/",{"form":form})
+        return render(request,"index.html",{'categories':categories,"form":form})
+
+def signup(request):
+    if request.method=='POST':
+        form = AddUser(request.POST)
+        if form.is_valid():
+            user_form = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user_form.set_password(user_form.password)
+            user_form.save()
+            return redirect("index")
+    else:
+        categories=Category.objects.all()
+        form = AddUser()
+        return render(request,"signup.html/",{'categories':categories,"form":form})
+
+# def login_auth(request):
+#     if request.method=='POST':
+#         form = Login_form(request.POST)
+#         username=request.POST['username']
+#         password=request.POST['password']
+#         user=authenticate(username=username,password=password)
+#         if user is not None:
+#             login(request,user)
+#             return redirect("user_home")
+#     else:
+#         form = Login_form()
+#         return render(request,"login.html/",{"form":form})
 
 def logout_auth(request):
     if request.user.is_authenticated:
         logout(request)
-        return redirect("login")
+        return redirect("index")
 
 def edit_user(request):
     if request.method=='GET':
