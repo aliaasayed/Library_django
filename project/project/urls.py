@@ -24,7 +24,6 @@ urlpatterns = [
     path('login/', lib_views.login_auth ,name='login'),
     path('signup/', lib_views.signup ,name='signup'),
     path('logout/', lib_views.logout_auth ,name='logout'),
-    # path('user_home.html/', lib_views.index ,name='user_home'),
     path('edit_user/', lib_views.edit_user ,name='edit_user'),
     path('category', lib_views.category,name="category"),
     path('search', lib_views.search,name="search"),
@@ -35,6 +34,8 @@ urlpatterns = [
     path('author_info/<int:author_num>', lib_views.author_details),
     path('user_info/<int:user_num>', lib_views.user_info,name='user_info'),
     path('user_home', lib_views.user_home,name='user_home'),
+    path('fav_cat', lib_views.fav_cat,name="fav_cat"),
+    path('unfav_cat', lib_views.unfav_cat,name="unfav_cat"),
     path('admin/', admin.site.urls),
     path('rating', lib_views.rating_book ,name='rating'),
 ]

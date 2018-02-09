@@ -5,14 +5,6 @@
 <head>
   <meta charset="utf-8">
   <title></title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
 </head>
 
 <body>
@@ -24,14 +16,14 @@
     <img src="{{user.img}}" width="200" height="200"/>
   </li> -->
         <li class="list-group-item list-group-item-warning">
-          <label> UserName :  </label>{{usr.username}}
+          <label> UserName :  </label> {{usr.username}}
         </li>
         <li class="list-group-item list-group-item-warning">
-          <label> User FullName :  </label>{{usr.first_name}}{{usr.last_name}}
+          <label> FullName :  </label> {{usr.first_name}} {{usr.last_name}}
 
         </li>
         <li class="list-group-item list-group-item-warning">
-          <label> Email :  </label>{{usr.email}}
+          <label> Email :  </label> {{usr.email}}
         </li>
 
         {% endfor %}

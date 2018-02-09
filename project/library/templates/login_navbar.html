@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-  <title>Navbar</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,6 +12,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+<style media="screen">
+  #user_img{
+    width: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+    margin-right: 7px;
+  }
+</style>
 </head>
 
 <body>
@@ -47,8 +54,13 @@
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
         <li><a href="user_info/{{request.user.id}}"><span class="glyphicon glyphicon-user icon"></span>{{ request.user.username }}</a></li>
         <li><a href="logout"><span class="glyphicon glyphicon-log-out icon"></span> Logout</a></li>
+=======
+        <li><a href="/user_info.html/{{request.user.id}}"><img id="user_img" src="/media/{{ request.user.user_profile.img }}"/>{{ request.user.username }}</a></li>
+        <li><a href="/logout.html"><span class="glyphicon glyphicon-log-in icon"></span> Logout</a></li>
+>>>>>>> b97a7b6816661cd578d0a9eeffdacbe34b46a367
       </ul>
     </div>
     </div>

@@ -23,6 +23,7 @@
     {% for book in cat_books %}
     
     <div class="row">
+<<<<<<< HEAD
         
         <div class="col-sm-2">
             <img src="/media/{{book.img}}" class="book_img">
@@ -32,10 +33,39 @@
             <a href="/book_info/{{ book.book_id }}">{{book.name}}</a>
         </div>
        
+=======
+      <div class="col-sm-6">
+        <center>
+
+           {% for book in cat_books %}
+                <div>
+
+
+                <img src="/media/{{book.img}}">
+
+
+                         <a href="/book_info.html/{{ book.book_id }}">
+                         {{book.name}}
+                         </a>
+
+                  </div>
+             {% endfor %}
+    </center>
+       </div>
+
+
+>>>>>>> b97a7b6816661cd578d0a9eeffdacbe34b46a367
     </div>
     <hr>
     {% endfor %}  
   </div>
+  <div id="favourite">
 
+      <form action="{% url 'fav_cat' %}" method="POST"> {% csrf_token %}
+        <input type="submit"  name="fav" value="Favourite" />
+          <input type="hidden" name="catid" value="{{catid}}" />
+      </form>
+
+  </div>
 </body>
 </html>

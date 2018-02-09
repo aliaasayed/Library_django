@@ -8,22 +8,6 @@ from django import forms
 # Create your views here.
 def index(request):
     categories=Category.objects.all()
-    return render(request,"index.html",{'categories':categories})
-
-def signup(request):
-    if request.method=='POST':
-        form = AddUser(request.POST)
-        if form.is_valid():
-            user_form = form.save(commit=False)
-            password = form.cleaned_data['password']
-            user_form.set_password(user_form.password)
-            user_form.save()
-            return redirect("login")
-    else:
-        form = AddUser()
-        return render(request,"signup.html/",{"form":form})
-
-def login_auth(request):
     if request.method=='POST':
         form = Login_form(request.POST)
         username=request.POST['username']
@@ -34,12 +18,47 @@ def login_auth(request):
             return redirect("user_home")
     else:
         form = Login_form()
-        return render(request,"login.html/",{"form":form})
+        # return render(request,"login.html/",{"form":form})
+        return render(request,"index.html",{'categories':categories,"form":form})
+
+def signup(request):
+    if request.method=='POST':
+        form = AddUser(request.POST,request.FILES)
+        profile=user_profile()
+        if form.is_valid():
+            user_form = form.save(commit=False)
+            password = form.cleaned_data['password']
+            user_form.set_password(user_form.password)
+            user_form.save()
+            profile.user=user_form
+            profile.img=form.cleaned_data['img']
+            profile.save()
+            return redirect("index")
+        else:
+            form = AddUser()
+            return render(request,"signup.html/",{'categories':categories,"form":form})
+    else:
+        categories=Category.objects.all()
+        form = AddUser()
+        return render(request,"signup.html/",{'categories':categories,"form":form})
+
+# def login_auth(request):
+#     if request.method=='POST':
+#         form = Login_form(request.POST)
+#         username=request.POST['username']
+#         password=request.POST['password']
+#         user=authenticate(username=username,password=password)
+#         if user is not None:
+#             login(request,user)
+#             return redirect("user_home")
+#     else:
+#         form = Login_form()
+#         return render(request,"login.html/",{"form":form})
 
 def logout_auth(request):
     if request.user.is_authenticated:
         logout(request)
-        return redirect("login")
+        return redirect("index")
 
 def edit_user(request):
     if request.method=='GET':
@@ -61,9 +80,13 @@ def edit_user(request):
                 User.objects.filter(id=id).update(first_name=first_name,last_name=last_name,email=email,username=username)
                 # edit_form.save()
                 return redirect("user_info",id)
-        # else:
-    #     form = Edit_form()
-    #     return render(request,"edit_user.html/",{"form":form})
+            else:
+                id=request.user.id
+                return redirect("user_info",id)
+
+        else:
+            form = Edit_form()
+            return render(request,"edit_user.html/",{"form":form})
 
 def search(request):
     categories=Category.objects.all()
@@ -73,17 +96,16 @@ def search(request):
     return render(request,"search_result.html",{'query':query,'books':books,'authors':authors,'categories':categories})
 
 def category(request):
-    book_ids=[]
-    book_ratings=[]
-    query=""
-    
+
     query=request.POST['Query']
     category=Category.objects.get(cat_name=query)
     cat_books=category.book.all()
     
     categories=Category.objects.all()
 
-    return render(request,"category.html",{'category':query,'categories':categories,'cat_books':cat_books,'book_ratings':book_ratings})
+    catid=category.cat_id
+    return render(request,"category.html",{'catid':catid,'categories':categories,'cat_books':cat_books})
+
 
 
 
@@ -112,6 +134,7 @@ def user_info(request,user_num):
 
 
 def user_home(request):
+    categories=Category.objects.all()
     user_num=request.user.id
     #user=User.objects.get(id=user_num)
     fav=Category.objects.filter(favourite__id=user_num)
@@ -119,8 +142,9 @@ def user_home(request):
     books=Book.objects.all()
     whish_books=user_book.objects.filter(user_id=user_num).filter(status='wish').values()
     follow=Author.objects.filter(follow__id=user_num).values()
-    categories=Category.objects.all()
-    return render(request,"user_home.html",{'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books,'categories':categories})
+
+    return render(request,"user_home.html",{'categories':categories,'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books})
+
 
 
 def book_status(request):
@@ -157,9 +181,25 @@ def unfollow_author(request):
 def rating_book(request):
     book_id=request.POST['id']
     rating=request.POST['rate']
-   # cat_choosen=request.POST['category']
     book=user_book.objects.get(book_id=book_id,user_id=request.user.id)
     book.rate=rating
     book.save()
    
     return book_details(request,book_id)
+
+
+def fav_cat(request):
+    usr=request.user.id
+    user=User.objects.get(id=usr)
+    catid=request.POST['catid']
+    category=Category.objects.get(cat_id=catid)
+    category.favourite.add(user)
+    return  user_home(request)
+
+def unfav_cat(request):
+    usr=request.user.id
+    user=User.objects.get(id=usr)
+    catid=request.POST['catid']
+    category=Category.objects.get(cat_id=catid)
+    category.favourite.remove(user)
+    return  user_home(request)

@@ -1,18 +1,43 @@
-{% include 'login_navbar.html' %}
 {% load staticfiles %}
+{% include 'login_navbar.html' %}
 <!DOCTYPE html>
+<style>
+  h1 {
+    margin-left: 25px;
+    margin-top: 10px;
+  }
+  #submit{
+    margin-top: 10px;
+    margin-left: 85px;
+  }
+  form p {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .row{
+    margin-top: 50px;
+  }
+  input{
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+</style>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Edit_user </title>
 </head>
 
 <body>
-  <h2> SignUp </h2>
-  <form method="POST"> {% csrf_token %} {{ form.as_p }}
-    <input type="submit" name="submit" value="submit" />
+  <div class="row">
+    <h1> Edit Info </h1>
+  <form method="POST"  enctype="multipart/form-data" class="col-sm-3 control-label offset-sm-2"> 
+    {% csrf_token %} {{ form.as_p }}
+    <input id="submit" type="submit" name="submit" value="Edit" class="btn btn-success col-sm-6 offset-sm-0"/>
   </form>
+    </div>
 </body>
 
 </html>
