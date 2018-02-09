@@ -21,7 +21,7 @@ import library.views as lib_views
 
 urlpatterns = [
     path('', lib_views.index,name='index'),
-    path('login/', lib_views.login_auth ,name='login'),
+   # path('login/', lib_views.login_auth ,name='login'),
     path('signup/', lib_views.signup ,name='signup'),
     path('logout/', lib_views.logout_auth ,name='logout'),
     path('edit_user/', lib_views.edit_user ,name='edit_user'),

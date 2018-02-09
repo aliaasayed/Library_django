@@ -31,10 +31,6 @@
       <ul class="list-group">
         {% for f in fav %}
         <li class="list-group-item list-group-item-warning">
-<<<<<<< HEAD
-            <form action="{% url 'category' %}" method="post"> {% csrf_token %}
-                <input type="submit" class="btn-link" name="Query" value="{{ f.cat_name }}"></form>
-=======
           <form class ="fo" action="{% url 'category' %}" method="post"> {% csrf_token %}
             <input type="submit" class="btn-link" name="Query" value="{{ f.cat_name }}">
           </form>
@@ -42,7 +38,6 @@
               <input type="submit"  name="fav" value="unfavourite" />
               <input type="hidden" name="catid" value="{{f.cat_id}}" />
           </form>
->>>>>>> b97a7b6816661cd578d0a9eeffdacbe34b46a367
         </li>
         {% endfor %}
       </ul> </div>
@@ -59,7 +54,7 @@
         </ul ></div>
 
         <div id="whishlist" class="panel-heading">
-          <h2> whish books </h2>
+          <h2> Wish-list books </h2>
           <ul class="list-group">
             {% for wb in whish_books %} {% for pp in books %} {% if wb.book_id_id == pp.book_id %}
             <li class="list-group-item list-group-item-warning">
@@ -74,13 +69,8 @@
             <ul class="list-group">
               {% for auth in follow %}
               <li class="list-group-item list-group-item-warning">
-<<<<<<< HEAD
-                <a href="/author_info/{{auth.author_id}}">{{auth.name}}</a>
-
-=======
->>>>>>> b97a7b6816661cd578d0a9eeffdacbe34b46a367
                 <form action="{% url 'unfollow_author' %}" method="POST"> {% csrf_token %}
-                    <a href="/author_info.html/{{auth.author_id}}">{{auth.name}}</a>
+                    <a href="/author_info/{{auth.author_id}}">{{auth.name}}</a>
                     <input type="submit"  name="follow" value="unfollow" />
                     <input type="hidden" name="authid" value="{{auth.author_id}}" />
                 </form>
