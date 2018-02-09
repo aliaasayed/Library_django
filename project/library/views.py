@@ -23,13 +23,20 @@ def index(request):
 
 def signup(request):
     if request.method=='POST':
-        form = AddUser(request.POST)
+        form = AddUser(request.POST,request.FILES)
+        profile=user_profile()
         if form.is_valid():
             user_form = form.save(commit=False)
             password = form.cleaned_data['password']
             user_form.set_password(user_form.password)
             user_form.save()
+            profile.user=user_form
+            profile.img=form.cleaned_data['img']
+            profile.save()
             return redirect("index")
+        else:
+            form = AddUser()
+            return render(request,"signup.html/",{'categories':categories,"form":form})
     else:
         categories=Category.objects.all()
         form = AddUser()
@@ -73,9 +80,13 @@ def edit_user(request):
                 User.objects.filter(id=id).update(first_name=first_name,last_name=last_name,email=email,username=username)
                 # edit_form.save()
                 return redirect("user_info",id)
-        # else:
-    #     form = Edit_form()
-    #     return render(request,"edit_user.html/",{"form":form})
+            else:
+                id=request.user.id
+                return redirect("user_info",id)
+
+        else:
+            form = Edit_form()
+            return render(request,"edit_user.html/",{"form":form})
 
 def search(request):
     categories=Category.objects.all()

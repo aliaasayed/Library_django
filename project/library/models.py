@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class user_profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    img = models.ImageField(upload_to = 'user_img/', default = 'author_img/None/no-img.jpg')
+    img = models.ImageField(upload_to = 'user_img', default = 'user_img/None/no-img.jpg')
 
 class Author(models.Model):
     author_id = models.AutoField(primary_key=True)
