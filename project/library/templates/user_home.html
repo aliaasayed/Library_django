@@ -6,7 +6,18 @@
 <head>
   <meta charset="utf-8">
   <title></title>
-
+  <style media="screen">
+    /* #favourite,#read,#whishlist,#follow{
+      display: inline;
+    } */
+    div.panel-heading{
+      float:left;
+    }
+    li{
+      text-align: center;
+    }
+  </style>
+</head>
 <body>
   <div class="container-fluid">
 
@@ -19,7 +30,7 @@
           <a href="/category.html/{{f.cat_id}}">{{f.cat_name}}</a>
         </li>
         {% endfor %}
-      </ul </div>
+      </ul> </div>
 
       <div id="read" class="panel-heading">
         <h2>Read Books</h2>
@@ -30,7 +41,7 @@
 
           </li>
           {% endif %} {% endfor %} {% endfor %}
-        </ul </div>
+        </ul ></div>
 
         <div id="whishlist" class="panel-heading">
           <h2> whish books </h2>
@@ -41,40 +52,22 @@
 
             </li>
             {% endif %} {% endfor %} {% endfor %}
-          </ul </div>
+          </ul></div>
 
           <div id="follow" class="panel-heading">
             <h2> Authors You Follow </h2>
             <ul class="list-group">
               {% for auth in follow %}
               <li class="list-group-item list-group-item-warning">
-                <a href="/author_info.html/{{auth.author_id}}">{{auth.name}}</a>
-
                 <form action="{% url 'unfollow_author' %}" method="POST"> {% csrf_token %}
-                  <input type="submit"  name="follow" value="unfollow" />
+                    <a href="/author_info.html/{{auth.author_id}}">{{auth.name}}</a>
+                    <input type="submit"  name="follow" value="unfollow" />
                     <input type="hidden" name="authid" value="{{auth.author_id}}" />
-
                 </form>
 
               </li>
               {% endfor %}
-            </ul </div>
-
-            <!-- <div>
-   {% for b in read_books  %}
-
-      {% for pp in books %}
-
-       {% if b.id == pp.book_id %}
-                 {{ pp.name }}
-         {% endif %}
-
-       {% endfor %}
-    {% endfor %}
-
-
-</div> -->
-
+            </ul> </div>
           </div>
 </body>
 

@@ -20,7 +20,7 @@ from django.conf import settings
 import library.views as lib_views
 
 urlpatterns = [
-    path('index.html', lib_views.index,name='index'),
+    path('index.html/', lib_views.index,name='index'),
     # path('login.html/', lib_views.login_auth ,name='login'),
     path('signup.html/', lib_views.signup ,name='signup'),
     path('logout.html/', lib_views.logout_auth ,name='logout'),
