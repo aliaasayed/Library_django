@@ -73,12 +73,17 @@ def search(request):
     return render(request,"search_result.html",{'query':query,'books':books,'authors':authors,'categories':categories})
 
 def category(request):
+    book_ids=[]
+    book_ratings=[]
+    query=""
+    
     query=request.POST['Query']
     category=Category.objects.get(cat_name=query)
     cat_books=category.book.all()
+    
     categories=Category.objects.all()
-    #author=Author.objects.filter(author_id__in=category.book.all())
-    return render(request,"category.html",{'categories':categories,'cat_books':cat_books})
+
+    return render(request,"category.html",{'category':query,'categories':categories,'cat_books':cat_books,'book_ratings':book_ratings})
 
 
 
@@ -86,7 +91,8 @@ def book_details(request,book_num):
     book=Book.objects.filter(book_id=book_num)
     ur=user_book._meta.get_field('status').choices
     bookid=book_num
-    return render(request,"book_info.html",{'book':book,'ur':ur,'bookid':bookid})
+    categories=Category.objects.all()
+    return render(request,"book_info.html",{'book':book,'ur':ur,'bookid':bookid,'categories':categories})
 
 
 
@@ -94,12 +100,14 @@ def author_details(request,author_num):
     author=Author.objects.filter(author_id=author_num)
     author_books=Book.objects.filter(author_id=author_num)
     authorid=author_num
-    return render(request,"author_info.html",{'author':author,'author_books':author_books,'authorid':authorid})
+    categories=Category.objects.all()
+    return render(request,"author_info.html",{'categories':categories,'author':author,'author_books':author_books,'authorid':authorid})
 
 
 def user_info(request,user_num):
     user=User.objects.filter(id=user_num)
-    return render(request,"user_info.html",{'user':user})
+    categories=Category.objects.all()
+    return render(request,"user_info.html",{'categories':categories,'user':user})
 
 
 
@@ -111,7 +119,8 @@ def user_home(request):
     books=Book.objects.all()
     whish_books=user_book.objects.filter(user_id=user_num).filter(status='wish').values()
     follow=Author.objects.filter(follow__id=user_num).values()
-    return render(request,"user_home.html",{'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books})
+    categories=Category.objects.all()
+    return render(request,"user_home.html",{'fav':fav,'read_books':read_books,'whish_books':whish_books,'follow':follow,'books':books,'categories':categories})
 
 
 def book_status(request):
@@ -124,7 +133,7 @@ def book_status(request):
         user_book.objects.filter(user_id=usr).filter(book_id=bkd).update(status=bkstatus)
     else:
         user_book.objects.create(user_id=user,book_id=book,status=bkstatus)
-    return  book_details(request,bkd) #user_home(request)
+    return  book_details(request,bkd) 
 
 
 def follow_author(request):
@@ -144,3 +153,13 @@ def unfollow_author(request):
     author=Author.objects.get(author_id=authorid)
     author.follow.remove(user)
     return  user_home(request)
+
+def rating_book(request):
+    book_id=request.POST['id']
+    rating=request.POST['rate']
+   # cat_choosen=request.POST['category']
+    book=user_book.objects.get(book_id=book_id,user_id=request.user.id)
+    book.rate=rating
+    book.save()
+   
+    return book_details(request,book_id)

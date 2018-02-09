@@ -3,78 +3,113 @@
 {% else %}
 {% include 'navbar.html' %}
 {% endif %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
   <title></title>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
-
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <div class="container-fluid">
+ <script>
+ 
+ 
+ </script> 
+<div class="container">
 
-<div class="row">
-    <div id="book_details" class="col-sm-6">
-      <ul class="list-group">
-        {% for bk in book %}
-        <img src="/media/{{bk.img}}" width="200" height="200" />
-        <li class="list-group-item list-group-item-warning">
-          <label> Book Name :  </label> {{bk.name}}
+<div class="media">
+  <div class="media-left">
+      {% for bk in book %}
+      <img src="/media/{{bk.img}}" class="media-object" />
+  </div>
+<div class="media-body"> 
+  <h2 class="media-heading" style="display:inline;"> {{bk.name}} </h2>
+  {% if request.user.is_authenticated %}
+       
+           <div style="display:inline;">
+            <span class="fa fa-star" id="1" onclick="star_check('{{ bookid }}',id);"></span>
+            <span class="fa fa-star" id="2" onclick="star_check('{{ bookid }}',id);"></span>
+            <span class="fa fa-star" id="3" onclick="star_check('{{ bookid }}',id);"></span>
+            <span class="fa fa-star" id="4" onclick="star_check('{{ bookid }}',id);"></span>
+            <span class="fa fa-star" id="5" onclick="star_check('{{ bookid }}',id);"></span>
+            
+            <form id="myForm" action="{% url 'rating'%}" method="POST">{% csrf_token %}
+               <input type="hidden" name="id" id="book_pk">
+               <input type="hidden" name="rate" id="rating">
+               
+            </form>
+          </div>
+       
+     {% endif %}
+  <form action="{% url 'book_status' %}" method="POST"> {% csrf_token %}
+      <select class="selectpicker show-menu-arrow"  title="Read/wish" name="status" onchange="submit();">
+        {% for r in ur %}
+         <option value="{{r.1}}">
+            {{r.1}}
+          
+           </option>
+        {% endfor %}
+       </select>
+         <input type="hidden" name="book_id" value="{{bookid}}" />
+      
+  </form>
+  <hr>
+  <ul class="list-group">
+      <li class="list-group-item list-group-item-default">
+          <label> Published at :  </label>{{bk.published_at}}
         </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> published at :  </label>{{bk.published_at}}
+        <li class="list-group-item list-group-item-default">
+          <label> Published in  :  </label>{{bk.country}}
         </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> summary:  </label> {{bk.summary}}
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> country book published in  :  </label>{{bk.country}}
-        </li>
-        <li>
+        <li class="list-group-item list-group-item-default">
             <label> Author :  </label>
-          <a href="/author_info.html/{{ bk.author_id.author_id }}">
+          <a href="/author_info/{{ bk.author_id.author_id }}">
                           {{bk.author_id.name}}
           </a>
         </li>
-
+        <hr>
+        <h3>Summary</h3>
+        {{bk.summary}}
         {% endfor %}
-      </ul>
-    </div>
 
-</div>
-
-     <div class="row">
-      <div class="dropdown" class="col-sm-6">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           Read/Wish
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <ul>
-            {% for r in ur %}
-
-            <li>
-              <form action="{% url 'book_status' %}" method="POST"> {% csrf_token %}
-                <input type="submit" class="btn-link" name="status" value="{{r.1}}" />
-
-            </li>
-            {% endfor %}
-            <input type="hidden" name="book_id" value="{{bookid}}" />
-            </form>
-          </ul>
-        </div>
-      </div>
-
+   <ul> 
+         
     </div>
   </div>
-</body>
+</div>  
+<script>
+function star_check(book_pk,star_id)
+{
+ 
+  var stars_book=document.getElementsByClassName("fa");
+  var len=stars_book.length;
+  var myform=document.getElementById('myForm');
+  var id_input=document.getElementById('book_pk');
+  var rate_input=document.getElementById('rating');
+ 
 
+  for (var i=0;i<len;i++)
+  {  
+      if(i<star_id)
+      {
+          stars_book[i].className = "fa fa-star checked"
+      }
+      else
+      { 
+          stars_book[i].className = "fa fa-star"
+
+      }
+
+  }
+
+  rate_input.value=star_id
+  id_input.value=book_pk
+  myform.submit()
+} 
+</script>
+</body>
 </html>

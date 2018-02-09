@@ -16,3 +16,40 @@
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
   color:white;
 }
+.book_img
+{
+  width: 100px ;
+  height: 150px;
+}
+
+body{
+  font-family: Acme;
+}
+a
+{
+  color: brown;
+  font-size: medium;
+}
+a:hover 
+{
+     color:  brown;
+     cursor:pointer;  
+}
+hr
+{
+  border-color:rgb(73, 70, 70);
+  
+}
+.checked{
+color: orange;
+}
+label
+{
+  
+  font-family: Acme;
+}
+h2,h3
+{
+  color: brown;
+}
+

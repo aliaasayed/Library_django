@@ -16,17 +16,18 @@
       <ul class="list-group">
         {% for f in fav %}
         <li class="list-group-item list-group-item-warning">
-          <a href="/category.html/{{f.cat_id}}">{{f.cat_name}}</a>
+            <form action="{% url 'category' %}" method="post"> {% csrf_token %}
+                <input type="submit" class="btn-link" name="Query" value="{{ f.cat_name }}"></form>
         </li>
         {% endfor %}
-      </ul </div>
+      </ul> </div>
 
       <div id="read" class="panel-heading">
         <h2>Read Books</h2>
         <ul class="list-group">
           {% for b in read_books %} {% for pp in books %} {% if b.book_id_id == pp.book_id %}
           <li class="list-group-item list-group-item-warning">
-            <a href="/book_info.html/{{b.book_id_id}}">{{ pp.name }}</a>
+            <a href="/book_info/{{b.book_id_id}}">{{ pp.name }}</a>
 
           </li>
           {% endif %} {% endfor %} {% endfor %}
@@ -37,7 +38,7 @@
           <ul class="list-group">
             {% for wb in whish_books %} {% for pp in books %} {% if wb.book_id_id == pp.book_id %}
             <li class="list-group-item list-group-item-warning">
-              <a href="/book_info.html/{{wb.book_id_id}}">{{ pp.name }}</a>
+              <a href="/book_info/{{wb.book_id_id}}">{{ pp.name }}</a>
 
             </li>
             {% endif %} {% endfor %} {% endfor %}
@@ -48,7 +49,7 @@
             <ul class="list-group">
               {% for auth in follow %}
               <li class="list-group-item list-group-item-warning">
-                <a href="/author_info.html/{{auth.author_id}}">{{auth.name}}</a>
+                <a href="/author_info/{{auth.author_id}}">{{auth.name}}</a>
 
                 <form action="{% url 'unfollow_author' %}" method="POST"> {% csrf_token %}
                   <input type="submit"  name="follow" value="unfollow" />

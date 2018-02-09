@@ -13,36 +13,29 @@
   <title>Category page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-  <script src="main.js"></script>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
   <div class="container">
+      
+    {% for book in cat_books %}
+    
     <div class="row">
-      <div class="col-sm-6">
-        <center>
-
-           {% for book in cat_books %}
-                <div>
-
-                
-                <img src="/media/{{book.img}}">
-
-                     
-                         <a href="/book_info.html/{{ book.book_id }}">
-                         {{book.name}}
-                         </a>
-                  
-                  </div>  
-             {% endfor %}   
-    </center>
-       </div>
-
-
+        
+        <div class="col-sm-2">
+            <img src="/media/{{book.img}}" class="book_img">
+        </div>
+      
+        <div class="col-sm-3">
+            <a href="/book_info/{{ book.book_id }}">{{book.name}}</a>
+        </div>
+       
     </div>
+    <hr>
+    {% endfor %}  
   </div>
 
 </body>
-
 </html>

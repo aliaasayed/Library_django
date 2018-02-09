@@ -13,44 +13,46 @@
   <title>Search Result</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-  <script src="main.js"></script>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
 <body>
   <div class="container">
     <div class="row">
         <div class="col-sm-6">
-           <center> <h3>Books</h3> </center>
-            <hr><ul>
+          <div class="well">
+           <center> <h2>Books</h2> </center>
+            <hr>
                 {% for book in books %}
-                <li>
-                    
+                <a href="/book_info/{{ book.book_id }}">
+                 <h4>{{book.name}}</h4> 
+                  </a>
+                  
                    <img src="/media/{{book.img}}">
 
-                       
-                            <a href="/book_info.html/{{ book.book_id }}">
-                            {{book.name}}
-                            </a>
-                </li>
-
+                   <hr>
                 {% endfor %}
-            </ul>
+            
+          </div>
         </div>
 
         <div class="col-sm-6">
-               <center> <h3>Authors</h3> </center>
+              <div class="well">
+               <center> <h2>Authors</h2> </center>
                 <hr>
-                <ul>
+               
                 {% for author in authors %}
-                    <img src="/media/{{book.img}}">
-                    <li>
-                        <a href="/author_info.html/{{ author.author_id }}">
+                <a href="/author_info.html/{{ author.author_id }}">
 
-                            {{author.name}}
-                        </a>
-          </li>
+                <h3>  {{author.name}} </h3>
+                </a>
+                    <img src="/media/{{book.img}}">
+                    
+                  
+         
           {% endfor %}
-        </ul>
+        
+      </div>
       </div>
     </div>
 

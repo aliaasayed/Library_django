@@ -21,21 +21,22 @@ import library.views as lib_views
 
 urlpatterns = [
     path('', lib_views.index,name='index'),
-    path('login.html/', lib_views.login_auth ,name='login'),
-    path('signup.html/', lib_views.signup ,name='signup'),
-    path('logout.html/', lib_views.logout_auth ,name='logout'),
+    path('login/', lib_views.login_auth ,name='login'),
+    path('signup/', lib_views.signup ,name='signup'),
+    path('logout/', lib_views.logout_auth ,name='logout'),
     # path('user_home.html/', lib_views.index ,name='user_home'),
-    path('edit_user.html/', lib_views.edit_user ,name='edit_user'),
+    path('edit_user/', lib_views.edit_user ,name='edit_user'),
     path('category', lib_views.category,name="category"),
     path('search', lib_views.search,name="search"),
-    path('book_info.html/<int:book_num>', lib_views.book_details),
+    path('book_info/<int:book_num>', lib_views.book_details),
     path('book', lib_views.book_status,name="book_status"),
     path('followauthor', lib_views.follow_author,name="follow_author"),
     path('unfollowauthor', lib_views.unfollow_author,name="unfollow_author"),
-    path('author_info.html/<int:author_num>', lib_views.author_details),
-    path('user_info.html/<int:user_num>', lib_views.user_info,name='user_info'),
-    path('user_home.html', lib_views.user_home,name='user_home'),
+    path('author_info/<int:author_num>', lib_views.author_details),
+    path('user_info/<int:user_num>', lib_views.user_info,name='user_info'),
+    path('user_home', lib_views.user_home,name='user_home'),
     path('admin/', admin.site.urls),
+    path('rating', lib_views.rating_book ,name='rating'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
