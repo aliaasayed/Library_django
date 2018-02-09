@@ -181,9 +181,15 @@ def unfollow_author(request):
 def rating_book(request):
     book_id=request.POST['id']
     rating=request.POST['rate']
-    book=user_book.objects.get(book_id=book_id,user_id=request.user.id)
-    book.rate=rating
-    book.save()
+    book=Book.objects.get(book_id=book_id)
+    user=User.objects.get(id=request.user.id)
+    if(user_book.objects.filter(user_id=request.user.id).filter(book_id=book_id)):
+        user_book.objects.filter(user_id=request.user.id).filter(book_id=book_id).update(rate=rating)
+    else:
+        user_book.objects.create(user_id=user,book_id=book,rate=rating)
+    # book=user_book.objects.get(book_id=book_id,user_id=request.user.id)
+    # book.rate=rating
+    # book.save()
    
     return book_details(request,book_id)
 

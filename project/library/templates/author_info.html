@@ -14,61 +14,68 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="container">
+      <div class="media">
+          <div class="media-left">
+              {% for auth in author %}
+              <img src="/media/{{auth.img}}" width="200" height="200" class="media-object"/>
+          </div>
 
+          <div class="media-body">
+              <h2 class="media-heading" style="display:inline;"> {{auth.name}} </h2>
+              
+              <div id="follow">
+      
+                  <form action="{% url 'follow_author' %}" method="POST"> {% csrf_token %}
+                    <input type="submit"  name="follow" value="Follow" />
+                      <input type="hidden" name="authid" value="{{auth.author_id}}" />
+                  </form>
+   
+              </div>
+              <hr>
+          <ul class="list-group">
 
-    <div id="author_details">
-      <ul class="list-group">
-        {% for auth in author %}
+              <li class="list-group-item list-group-item-default">
+                <label> Date of Birth :  </label> {{auth.date_of_birth}}
+              </li>
+              <li class="list-group-item list-group-item-default">
+                <label> Died at :  </label> {{auth.date_of_die}}
+              </li>
+              <li class="list-group-item list-group-item-default">
+                <label> Contact at :  </label>{{auth.contact}}
+              </li>
+              <li class="list-group-item list-group-item-default">
+                <label> Author Bio :  </label>{{auth.bio}}
+              </li>
+      
+              {% endfor %}
+      
+            </ul>
+          
+            <div id="author_books" class="panel panel-default">
+              <div class="panel panel-heading">
+              <h4>Author Books</h4>
+              </div> 
+                <div class="panel panel-body">
+                <ul class="list-group">
+                  {% for bk in author_books %}
+                  <li class="list-group-item list-group-item-default">
+                    <a href="/book_info/{{ bk.book_id }}">
+                      {{bk.name}}
+                      </a>
+                  </li>
+                  {% endfor %}
+                </div>
+                </ul>
+              </div>
 
-        <img src="media/{{auth.img}}" width="200" height="200" />
-
-
-        <li class="list-group-item list-group-item-warning">
-          <label> Author Name :  </label>{{auth.name}}
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> Date of Birth :  </label> {{auth.date_of_birth}}
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> Died at :  </label> {{auth.date_of_die}}
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> Contact at :  </label>{{auth.contact}}
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          <label> Author Bio :  </label>{{auth.bio}}
-        </li>
-
-
-           <div id="follow">
-
-               <form action="{% url 'follow_author' %}" method="POST"> {% csrf_token %}
-                 <input type="submit"  name="follow" value="Follow" />
-                   <input type="hidden" name="authid" value="{{auth.author_id}}" />
-               </form>
-
-           </div>
-
-        {% endfor %}
-
-      </ul>
+          </div>
+      </div>
+      
     </div>
 
 
-    <div id="author_books">
-      <h2>Author Books</h2>
-      <ul class="list-group">
-        {% for bk in author_books %}
-        <li>
-          <a href="/book_info/{{ bk.book_id }}">
-            {{bk.name}}
-            </a>
-        </li>
-        {% endfor %}
-
-      </ul>
-    </div>
+   
   </div>
 </body>
 
