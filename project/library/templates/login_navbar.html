@@ -14,10 +14,9 @@
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
 <style media="screen">
   #user_img{
-    width: 20px;
-    height: 20px;
-    margin-bottom: 10px;
-    margin-right: 7px;
+    width: 25px;
+    height: 25px;
+    margin-right: -20px;
   }
 </style>
 </head>
@@ -54,7 +53,8 @@
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/user_info/{{request.user.id}}"><span class="glyphicon glyphicon-user icon"></span>{{ request.user.username }}</a></li>
+        <li><a  href="/user_info/{{request.user.id}}"><img id="user_img" src="/media/{{ request.user.user_profile.img }}"></a></li>
+        <li><a href="/user_info/{{request.user.id}}">{{ request.user.username }}</a></li>
         <li><a href="/logout"><span class="glyphicon glyphicon-log-out icon"></span> Logout</a></li>
       </ul>
     </div>

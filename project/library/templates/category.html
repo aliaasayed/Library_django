@@ -19,7 +19,14 @@
 
 <body>
   <div class="container">
+    <div id="favourite" style="display:inline;">
       
+      <form action="{% url 'fav_cat' %}" method="POST"> {% csrf_token %}
+        <input type="submit"  name="fav" value="Favourite" />
+          <input type="hidden" name="catid" value="{{catid}}" />
+      </form>
+
+   </div>
     {% for book in cat_books %}
     
     <div class="row">
@@ -30,14 +37,7 @@
       
         <div class="col-sm-3">
             <a href="/book_info/{{ book.book_id }}">{{book.name}}</a>
-            <div id="favourite" style="display:inline;">
-
-                    <form action="{% url 'fav_cat' %}" method="POST"> {% csrf_token %}
-                      <input type="submit"  name="fav" value="Favourite" />
-                        <input type="hidden" name="catid" value="{{catid}}" />
-                    </form>
-              
-            </div>
+            
         </div>
         
     </div>

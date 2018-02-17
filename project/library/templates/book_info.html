@@ -12,13 +12,10 @@
   <title></title>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'js/getStars.js' %}"> </script> 
 </head>
 
 <body>
- <script>
- 
- 
- </script> 
 <div class="container">
 
 <div class="media">
@@ -29,21 +26,23 @@
 <div class="media-body"> 
   <h2 class="media-heading" style="display:inline;"> {{bk.name}} </h2>
   {% if request.user.is_authenticated %}
-       
+      
            <div style="display:inline;">
             <span class="fa fa-star" id="1" onclick="star_check('{{ bookid }}',id);"></span>
             <span class="fa fa-star" id="2" onclick="star_check('{{ bookid }}',id);"></span>
             <span class="fa fa-star" id="3" onclick="star_check('{{ bookid }}',id);"></span>
             <span class="fa fa-star" id="4" onclick="star_check('{{ bookid }}',id);"></span>
             <span class="fa fa-star" id="5" onclick="star_check('{{ bookid }}',id);"></span>
-            
+            {% if  book_rating %}
+            <script type="text/javascript"> get_stars('{{ book_rating }}'); </script>
+            {% endif %}
             <form id="myForm" action="{% url 'rating'%}" method="POST">{% csrf_token %}
                <input type="hidden" name="id" id="book_pk">
                <input type="hidden" name="rate" id="rating">
                
             </form>
           </div>
-       
+          
      {% endif %}
   <form action="{% url 'book_status' %}" method="POST"> {% csrf_token %}
       <select class="selectpicker show-menu-arrow"  title="Read/wish" name="status" onchange="submit();">
@@ -81,35 +80,5 @@
     </div>
   </div>
 </div>  
-<script>
-function star_check(book_pk,star_id)
-{
- 
-  var stars_book=document.getElementsByClassName("fa");
-  var len=stars_book.length;
-  var myform=document.getElementById('myForm');
-  var id_input=document.getElementById('book_pk');
-  var rate_input=document.getElementById('rating');
- 
-
-  for (var i=0;i<len;i++)
-  {  
-      if(i<star_id)
-      {
-          stars_book[i].className = "fa fa-star checked"
-      }
-      else
-      { 
-          stars_book[i].className = "fa fa-star"
-
-      }
-
-  }
-
-  rate_input.value=star_id
-  id_input.value=book_pk
-  myform.submit()
-} 
-</script>
 </body>
 </html>

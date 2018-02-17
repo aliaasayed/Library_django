@@ -100,9 +100,7 @@ def category(request):
     query=request.POST['Query']
     category=Category.objects.get(cat_name=query)
     cat_books=category.book.all()
-    
     categories=Category.objects.all()
-
     catid=category.cat_id
     return render(request,"category.html",{'catid':catid,'categories':categories,'cat_books':cat_books})
 
@@ -113,8 +111,12 @@ def book_details(request,book_num):
     book=Book.objects.filter(book_id=book_num)
     ur=user_book._meta.get_field('status').choices
     bookid=book_num
+    book_rating=" "
     categories=Category.objects.all()
-    return render(request,"book_info.html",{'book':book,'ur':ur,'bookid':bookid,'categories':categories})
+    if(user_book.objects.filter(user_id=request.user.id).filter(book_id=book_num)):
+        book_rated=user_book.objects.get(user_id=request.user.id,book_id=book_num)
+        book_rating=book_rated.rate
+    return render(request,"book_info.html",{'book_rating':book_rating,'book':book,'ur':ur,'bookid':bookid,'categories':categories})
 
 
 

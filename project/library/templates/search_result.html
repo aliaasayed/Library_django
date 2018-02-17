@@ -28,7 +28,7 @@
                  <h4>{{book.name}}</h4> 
                   </a>
                   
-                   <img src="/media/{{book.img}}">
+                   <img src="/media/{{book.img}}" class="book_img">
 
                    <hr>
                 {% endfor %}
@@ -42,13 +42,13 @@
                 <hr>
                
                 {% for author in authors %}
-                <a href="/author_info.html/{{ author.author_id }}">
+                <a href="/author_info/{{ author.author_id }}">
 
-                <h3>  {{author.name}} </h3>
+                <h4>  {{author.name}} </h4>
                 </a>
-                    <img src="/media/{{book.img}}">
+                    <img src="/media/{{author.img}}" class="book_img">
                     
-                  
+                  <hr>
          
           {% endfor %}
         
